@@ -3,14 +3,21 @@ import 'dart:async';
 import 'package:shelf/shelf.dart';
 import 'package:shelf/shelf_io.dart' as io;
 
-Future<void> main(List<String> arguments) async {
-  final server = await io.serve((request) {
-    print(request);
-    return Response(200);
-    //return null;
-  }, '0.0.0.0', 4466);
+void main(List<String> arguments) async {
+  var pipeline = Pipeline()..addMiddleware(log());
+
+  final server = await io.serve(_handler, '0.0.0.0', 4466);
 
   print('Online - ${server.address.address}:${server.port} ');
+}
+
+Middleware log() {
+  return (handler) {
+    return (request) {
+      print('solicitado: ${request.url}');
+      return handler(request);
+    };
+  };
 }
 
 FutureOr<Response> _handler(Request request) {
