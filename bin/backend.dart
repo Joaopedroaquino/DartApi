@@ -1,26 +1,12 @@
 import 'dart:async';
 
+import 'package:backend/backend.dart';
 import 'package:shelf/shelf.dart';
 import 'package:shelf/shelf_io.dart' as io;
 
 void main(List<String> arguments) async {
-  var pipeline = Pipeline()..addMiddleware(log());
+  final handler = await startShelfModular();
+  final server = await io.serve(handler, '0.0.0.0', 4466);
 
-  final server = await io.serve(pipeline.addHandler(_handler), '0.0.0.0', 4466);
-
-  print('Online - ${server.address.address}:${server.port} ');
-}
-
-Middleware log() {
-  return (handler) {
-    return (request) {
-      print('solicitado: ${request.url}');
-      return handler(request);
-    };
-  };
-}
-
-FutureOr<Response> _handler(Request request) {
-  print(request);
-  return Response(200, body: 'corpo');
+  print('Server online - ${server.address.address}:${server.port} ');
 }
