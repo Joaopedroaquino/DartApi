@@ -6,7 +6,7 @@ import 'package:shelf/shelf_io.dart' as io;
 void main(List<String> arguments) async {
   var pipeline = Pipeline()..addMiddleware(log());
 
-  final server = await io.serve(_handler, '0.0.0.0', 4466);
+  final server = await io.serve(pipeline.addHandler(_handler), '0.0.0.0', 4466);
 
   print('Online - ${server.address.address}:${server.port} ');
 }
