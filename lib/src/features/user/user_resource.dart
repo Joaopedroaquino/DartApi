@@ -22,14 +22,14 @@ class UserResource extends Resource {
   }
 
   FutureOr<Response> _createUser(ModularArguments arguments) {
-    return Response.ok('User: ${arguments.data}');
+    return Response.ok('Create user: ${arguments.params['id']}');
   }
 
   FutureOr<Response> _updateUser(ModularArguments arguments) {
-    return Response.ok('User: ${arguments.data}');
+    return Response.ok('Updated user: ${arguments.data}');
   }
 
   FutureOr<Response> _deleteUser(ModularArguments arguments) {
-    return Response.ok('User: ${arguments.data}');
+    return Response.ok('Delete user: ${arguments.data}');
   }
 }
