@@ -7,10 +7,10 @@ class UserResource extends Resource {
   @override
   List<Route> get routes => [
         Route.get('/user', _getAllUser),
-        Route.get('/user/:id', _getAllUser),
+        Route.get('/user/:id', _getUserByid),
         Route.post('/user', _createUser),
-        Route.put('/user', _createUser),
-        Route.delete('/user/:id', _getAllUser),
+        Route.put('/user', _updateUser),
+        Route.delete('/user/:id', _deleteUser),
       ];
 
   FutureOr<Response> _getAllUser() {
@@ -26,6 +26,10 @@ class UserResource extends Resource {
   }
 
   FutureOr<Response> _updateUser(ModularArguments arguments) {
+    return Response.ok('User: ${arguments.data}');
+  }
+
+  FutureOr<Response> _deleteUser(ModularArguments arguments) {
     return Response.ok('User: ${arguments.data}');
   }
 }
