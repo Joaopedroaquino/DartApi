@@ -8,7 +8,9 @@ class UserResource extends Resource {
   List<Route> get routes => [
         Route.get('/user', _getAllUser),
         Route.get('/user/:id', _getAllUser),
-        Route.get('/user', _createUser),
+        Route.post('/user', _createUser),
+        Route.put('/user', _createUser),
+        Route.delete('/user/:id', _getAllUser),
       ];
 
   FutureOr<Response> _getAllUser() {
@@ -20,6 +22,10 @@ class UserResource extends Resource {
   }
 
   FutureOr<Response> _createUser(ModularArguments arguments) {
-    return Response.ok('User: ${arguments.params['id']}');
+    return Response.ok('User: ${arguments.data}');
+  }
+
+  FutureOr<Response> _updateUser(ModularArguments arguments) {
+    return Response.ok('User: ${arguments.data}');
   }
 }
